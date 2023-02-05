@@ -7,11 +7,7 @@ from decimal import Decimal
 
 
 def mean(data):
-    sum = Decimal(0.0)
-    for item in data:
-        sum += item
-
-    return sum / len(data)
+    return sum(data) / len(data)
 
 
 def variance_s(data):  # s^2
@@ -20,8 +16,7 @@ def variance_s(data):  # s^2
     for item in data:
         sum_differences += ((item - this_mean) ** 2)
 
-    variance = sum_differences / (len(data) - 1)
-    return variance
+    return sum_differences / (len(data) - 1)
 
 
 def std_deviation_s(data):  # s^1/2
@@ -37,8 +32,7 @@ def covariance_s(x, y):  # Sxy
     for i in range(n):
         sums += (x[i] - mean_x) * (y[i] - mean_y)
 
-    cov_s = sums / (n - 1)
-    return cov_s
+    return sums / (n - 1)
 
 
 def covariance_coefficient_s(x, y):  # Rxy
@@ -46,8 +40,7 @@ def covariance_coefficient_s(x, y):  # Rxy
     dev_x = std_deviation_s(x)
     dev_y = std_deviation_s(y)
 
-    cc = cov / (dev_x * dev_y)
-    return cc
+    return cov / (dev_x * dev_y)
 
 
 def b_s(r, sx, sy): # b
@@ -78,6 +71,8 @@ print(f"The standard deviation of y is: {round(std_d_y, 3)}")
 cocof = covariance_coefficient_s(x1, y1)  # r
 print(f"\nThe covariance coefficient (r) of x, y is: {round(cocof, 3)}")
 
+
+#linear regression
 b = b_s(cocof, std_d_x, std_d_y)
 a = mean_y - (b * mean_x)
 
@@ -86,6 +81,6 @@ print(f"\nThe best fit line is \u0177 = {round(b, 3)}x + {round(a, 3)}")
 plt.scatter(x1, y1) #show scatter plot
 
 y2 = [f(x, a, b) for x in x1] #making a trendline for all values in the list x1
-plt.plot(x1, y2) #add trendlint to plt
+plt.plot(x1, y2) #add trendline to plot
 
 plt.show()
